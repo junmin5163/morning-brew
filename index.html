@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>모닝브루 · 망원동 골목 끝, 매일 아침 직접 내리는 커피</title>
+  <meta name="description" content="서울 망원동 동네 카페 모닝브루. 매일 아침 직접 내리는 핸드드립 커피와 당일 구운 수제 스콘, 혼자 와도 편한 1인 좌석." />
+  <meta property="og:title" content="모닝브루 · 망원동 동네 카페" />
+  <meta property="og:description" content="매일 아침 직접 내리는 핸드드립 커피와 당일 구운 수제 스콘" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>" />
+  <style>
+    :root {
+      --bg: #fffaf3;
+      --card: #ffffff;
+      --ink: #3b2a1d;
+      --ink-soft: #6f5b48;
+      --line: #f0e4d3;
+      --accent: #b07b3f;
+      --accent-soft: #f6ead7;
+      --cta: #4a2c14;          /* 짙은 갈색 예약 버튼 */
+      --cta-hover: #5f3a1c;
+      --hours-bg: #fff6de;     /* 영업시간 카드, 은은한 노란색 */
+      --hours-line: #f2e3b8;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+    /* ── 상단 헤더 ── */
+    header {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(255, 250, 243, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+    .brand { font-weight: 800; font-size: 1.05rem; letter-spacing: -0.01em; }
+    .brand span { color: var(--accent); }
+    .nav a.mini-cta {
+      background: var(--cta); color: #fff; text-decoration: none;
+      font-size: 0.85rem; font-weight: 700;
+      padding: 8px 16px; border-radius: 999px;
+    }
+
+    /* ── 첫 화면 ── */
+    .hero { text-align: center; padding: 64px 0 48px; }
+    .hero .badge {
+      display: inline-block; background: var(--accent-soft); color: var(--accent);
+      font-size: 0.8rem; font-weight: 700; padding: 6px 14px; border-radius: 999px;
+      margin-bottom: 18px;
+    }
+    .hero h1 { font-size: clamp(2.2rem, 8vw, 3.2rem); font-weight: 900; letter-spacing: -0.03em; }
+    .hero h1 em { font-style: normal; color: var(--accent); }
+    .hero p.tagline { margin-top: 14px; font-size: 1.08rem; color: var(--ink-soft); }
+    .hero .points { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .hero .points li {
+      list-style: none; background: var(--card); border: 1px solid var(--line);
+      font-size: 0.85rem; color: var(--ink-soft); padding: 7px 14px; border-radius: 999px;
+    }
+    .hero .cta-row { margin-top: 30px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; text-decoration: none; font-weight: 800; font-size: 1rem;
+      padding: 15px 30px; border-radius: 14px; transition: transform .15s ease, background .15s ease;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: var(--cta); color: #fff; box-shadow: 0 6px 18px rgba(74, 44, 20, 0.28); }
+    .btn-primary:hover { background: var(--cta-hover); }
+    .btn-ghost { background: var(--card); color: var(--ink); border: 1.5px solid var(--line); }
+
+    /* ── 섹션 공통 ── */
+    section { padding: 44px 0; }
+    .sec-title { font-size: 1.5rem; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .sec-sub { color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 24px; }
+
+    /* ── 메뉴 카드 ── */
+    .menu-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 560px) { .menu-grid { grid-template-columns: 1fr 1fr; } }
+    .menu-card {
+      background: var(--card); border: 1px solid var(--line); border-radius: 18px;
+      padding: 22px; display: flex; flex-direction: column; gap: 6px;
+    }
+    .menu-card .emoji { font-size: 1.7rem; }
+    .menu-card h3 { font-size: 1.08rem; font-weight: 800; }
+    .menu-card p { font-size: 0.88rem; color: var(--ink-soft); flex: 1; }
+    .menu-card .price { font-weight: 900; color: var(--accent); font-size: 1.05rem; }
+    .menu-card.best { border: 1.5px solid var(--accent); position: relative; }
+    .menu-card.best::after {
+      content: "대표 메뉴"; position: absolute; top: -11px; right: 16px;
+      background: var(--accent); color: #fff; font-size: 0.72rem; font-weight: 800;
+      padding: 3px 10px; border-radius: 999px;
+    }
+
+    /* ── 영업시간 카드 (수정 반영: 여백 확대 + 은은한 노란색) ── */
+    .hours-card {
+      background: var(--hours-bg); border: 1.5px solid var(--hours-line);
+      border-radius: 20px; padding: 34px 30px; text-align: center;
+    }
+    .hours-card .label { font-size: 0.85rem; font-weight: 800; color: var(--accent); letter-spacing: 0.08em; }
+    .hours-card .time { font-size: clamp(1.4rem, 5vw, 1.8rem); font-weight: 900; margin: 10px 0 6px; }
+    .hours-card .closed { color: var(--ink-soft); font-size: 0.95rem; }
+
+    /* ── 위치 ── */
+    .info-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 20px; }
+    @media (min-width: 560px) { .info-grid { grid-template-columns: 1fr 1fr; } }
+    .info-card {
+      background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 22px;
+    }
+    .info-card h3 { font-size: 0.85rem; font-weight: 800; color: var(--accent); margin-bottom: 8px; letter-spacing: 0.06em; }
+    .info-card p { font-size: 0.95rem; }
+    .info-card a { color: var(--ink); font-weight: 700; }
+
+    /* ── 예약 배너 ── */
+    .reserve {
+      background: var(--cta); border-radius: 24px; color: #fff;
+      padding: 42px 28px; text-align: center;
+    }
+    .reserve h2 { font-size: 1.45rem; font-weight: 900; letter-spacing: -0.02em; }
+    .reserve p { margin: 10px 0 24px; color: #e9dccb; font-size: 0.95rem; }
+    .reserve .btn { background: #fff; color: var(--cta); }
+    .reserve .btn:hover { background: #f6ead7; }
+
+    footer { padding: 36px 0 110px; text-align: center; color: var(--ink-soft); font-size: 0.82rem; }
+
+    /* ── 모바일 하단 고정 예약 버튼 ── */
+    .sticky-cta {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+      padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+      background: linear-gradient(to top, rgba(255,250,243,0.98), rgba(255,250,243,0));
+      display: flex; justify-content: center;
+    }
+    .sticky-cta a {
+      width: 100%; max-width: 480px; text-align: center;
+      background: var(--cta); color: #fff; text-decoration: none;
+      font-weight: 800; font-size: 1rem; padding: 15px 0; border-radius: 14px;
+      box-shadow: 0 8px 22px rgba(74, 44, 20, 0.32);
+    }
+    @media (min-width: 720px) { .sticky-cta { display: none; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="wrap nav">
+      <div class="brand">☕ 모닝<span>브루</span></div>
+      <a class="mini-cta" href="tel:02-123-4567">예약하기</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- 첫 화면: 가게 이름 + 한 줄 소개 -->
+    <section class="hero">
+      <span class="badge">서울 망원동 · 동네 카페</span>
+      <h1>매일 아침,<br /><em>직접 내리는 커피</em> 한 잔</h1>
+      <p class="tagline">골목 끝 작은 카페 모닝브루입니다.<br />오늘도 정성껏 내린 핸드드립과 갓 구운 스콘을 준비했습니다.</p>
+      <ul class="points">
+        <li>매일 아침 핸드드립</li>
+        <li>당일 구운 수제 스콘</li>
+        <li>혼자 와도 편한 1인 좌석</li>
+      </ul>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="tel:02-123-4567">전화로 예약하기</a>
+        <a class="btn btn-ghost" href="https://instagram.com/morningbrew_official" target="_blank" rel="noopener">인스타그램 보기</a>
+      </div>
+    </section>
+
+    <!-- 대표 메뉴 -->
+    <section id="menu">
+      <h2 class="sec-title">오늘의 메뉴</h2>
+      <p class="sec-sub">좋은 원두와 재료로, 매일 소량씩 준비합니다.</p>
+      <div class="menu-grid">
+        <div class="menu-card best">
+          <span class="emoji">☕</span>
+          <h3>핸드드립 커피</h3>
+          <p>매일 아침 바리스타가 직접 내립니다. 그날의 원두에 맞춘 가장 편안한 한 잔입니다.</p>
+          <span class="price">5,500원</span>
+        </div>
+        <div class="menu-card">
+          <span class="emoji">🫘</span>
+          <h3>오늘의 원두</h3>
+          <p>계절마다 바뀌는 싱글 오리진 원두를 부담 없는 가격으로 즐겨 보세요.</p>
+          <span class="price">4,500원</span>
+        </div>
+        <div class="menu-card">
+          <span class="emoji">🥐</span>
+          <h3>수제 스콘</h3>
+          <p>당일 아침에 구워 그날 다 판매합니다. 커피와 가장 잘 어울리는 짝꿍입니다.</p>
+          <span class="price">3,500원</span>
+        </div>
+        <div class="menu-card">
+          <span class="emoji">🍹</span>
+          <h3>계절 과일 에이드</h3>
+          <p>제철 과일로 만든 상큼한 에이드. 커피가 어려운 분께 권해 드립니다.</p>
+          <span class="price">6,000원</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 영업시간 (수정 요청 반영: 큰 카드, 은은한 노란색) -->
+    <section id="hours">
+      <h2 class="sec-title">영업시간</h2>
+      <p class="sec-sub">방문 전에 한 번만 확인해 주세요.</p>
+      <div class="hours-card">
+        <span class="label">OPEN</span>
+        <p class="time">화요일 ~ 일요일 · 08:00 ~ 20:00</p>
+        <p class="closed">매주 월요일은 쉬어 갑니다 🌙</p>
+      </div>
+    </section>
+
+    <!-- 위치와 연락처 -->
+    <section id="location">
+      <h2 class="sec-title">찾아오시는 길</h2>
+      <p class="sec-sub">골목 끝이라 조용하고, 역에서 걸어오기 좋습니다.</p>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>📍 위치</h3>
+          <p>서울 망원동 골목 끝<br />망원역 2번 출구에서 도보 6분</p>
+        </div>
+        <div class="info-card">
+          <h3>💬 연락처</h3>
+          <p>
+            전화 <a href="tel:02-123-4567">02-123-4567</a><br />
+            인스타그램 <a href="https://instagram.com/morningbrew_official" target="_blank" rel="noopener">@morningbrew_official</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 예약 배너 -->
+    <section>
+      <div class="reserve" id="reserve">
+        <h2>자리를 미리 맡아 두고 싶으신가요?</h2>
+        <p>전화 한 통이면 창가 자리도, 1인 좌석도 준비해 두겠습니다.</p>
+        <a class="btn" href="tel:02-123-4567">02-123-4567 전화하기</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © 2026 모닝브루 · 서울 망원동 · 대표 허준민
+  </footer>
+
+  <!-- 모바일 하단 고정 예약 버튼 -->
+  <div class="sticky-cta">
+    <a href="tel:02-123-4567">☕ 지금 전화로 예약하기</a>
+  </div>
+
+</body>
+</html>
